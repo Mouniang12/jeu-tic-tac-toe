@@ -37,7 +37,7 @@ void affichegrille() {
   Vérifie si la case actuelle est valide
 */
 int verifieSicaseValide(int a, int b) {
-  if (grille[a][b] ==' ' && a < LARGEUR && b < LONGUEUR ) {
+  if (grille[a][b] == ' ' && a < LARGEUR && b < LONGUEUR ) {
     return 1;
   }
   return 0;  
@@ -92,13 +92,13 @@ int verifieSiUnJoueurAgagner(char player) {
 int verifieSiExisteCaseValide() {
   for (int i = 0; i < LARGEUR; i++) {
     for(int j = 0; j<LONGUEUR;j++) {
-      if (verifieSicaseValide(i,j) == 0) {
-        return 0;
+      if (verifieSicaseValide(i,j) == 1) {
+        return 1;
       }
       
     }
   }
-  return 1;
+  return 0;
 }
 
 void programmePrincipale() {
@@ -135,6 +135,8 @@ void programmePrincipale() {
   /*
     le joueur joue et l'ordinateur également
   */
+
+  printf("%d\n", verifieSiExisteCaseValide());
   while (verifieSiExisteCaseValide() == 1 && verifieSiUnJoueurAgagner(joueur) == 0) {
 
     //le joueur joueN
@@ -160,7 +162,6 @@ void programmePrincipale() {
   jeu de l'odinateur
  */
  
-
 }
 
 int main() {
