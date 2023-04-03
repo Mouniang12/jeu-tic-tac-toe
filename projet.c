@@ -105,7 +105,7 @@ void programmePrincipale() {
   initgrille();
   affichegrille();
   char joueur, ordinateur;
-  int numeroCase, colonne;
+  int numeroCase, colonne,a,b;
   
   /*
     le joueur choisit sa couleur
@@ -136,11 +136,8 @@ void programmePrincipale() {
     le joueur joue et l'ordinateur également
   */
 
-  printf("%d\n", verifieSiExisteCaseValide());
-  while (verifieSiExisteCaseValide() == 1 && verifieSiUnJoueurAgagner(joueur) == 0) {
-
+  while (verifieSiExisteCaseValide() == 1 && (verifieSiUnJoueurAgagner(joueur) == 0 && verifieSiUnJoueurAgagner(ordinateur) == 0)) {
     //le joueur joueN
-    
     do{
       printf("Choisissez une case : ");
       scanf(" %d", &numeroCase);
@@ -148,20 +145,35 @@ void programmePrincipale() {
       printf("Choisissez une colonne : ");
       scanf(" %d", &colonne);
 
-      if (verifieSicaseValide(numeroCase, colonne) == 0 || numeroCase<1 || colonne < 1) {
+      if (verifieSicaseValide(numeroCase-1, colonne-1) == 0 || numeroCase<1 || colonne < 1) {
         printf("\n\n\033[1;31mMerci de selectionner une case valide.\033[0m\n\n");
       }
 
-    }while (verifieSicaseValide(numeroCase, colonne) == 0 || numeroCase<1 || colonne < 1);
+    }while (verifieSicaseValide(numeroCase-1, colonne-1) == 0 || numeroCase<1 || colonne < 1);
 
     grille[numeroCase-1][colonne-1] = joueur;
     affichegrille();
-  }   
+    
 
- /*
-  jeu de l'odinateur
- */
- 
+    /*
+    jeu de l'odinateur
+   */
+    do {
+      a = rand() % LARGEUR;
+      b = rand() % LONGUEUR;
+    } while (verifieSicaseValide(a, b) == 0);
+    grille[a][b] = ordinateur;
+    printf("\n\n\033[34mL'ordinateur a joué en (%d, %d)\033[0m\n\n", a+1, b+1);
+    affichegrille();   
+  }   
+  if (verifieSiUnJoueurAgagner(joueur) == 1) {
+    printf("\n\n\033[34mFélicitation. Vous avez gagné.\033[0m\n\n");
+  }
+
+ if (verifieSiUnJoueurAgagner(ordinateur) == 1) {
+    printf("\n\n\033[34mVous avez malheureusement perdu.\033[0m\n\n");
+  }
+  
 }
 
 int main() {
