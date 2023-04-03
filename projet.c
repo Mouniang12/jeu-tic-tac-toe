@@ -30,6 +30,7 @@ void affichegrille() {
     }
     printf("\n"); // passe à la ligne suivante
   }
+  printf("\n");
 }
 
 /*
@@ -39,8 +40,7 @@ int verifieSicaseValide(int a, int b) {
   if (grille[a][b] ==' ' && a < LARGEUR && b < LONGUEUR ) {
     return 1;
   }
-  return 0;
-  
+  return 0;  
 } 
 
 int verifieSiUnJoueurAgagner(char player) {
@@ -112,7 +112,7 @@ void programmePrincipale() {
   */
 
     do {
-        printf("Choisissez une couleur:\nB->Blanc\nN->Noir\n");
+        printf("Choisissez une couleur:\n\nB->Blanc\nN->Noir\n");
         scanf(" %c", &joueur);
         if (joueur != 'B' && joueur != 'N') {
           printf("\n\n\033[1;31mVous ne pouvez que selectionner N ou B. Réessayez.\033[0m\n\n");
@@ -135,24 +135,27 @@ void programmePrincipale() {
   /*
     le joueur joue et l'ordinateur également
   */
- while (verifieSiExisteCaseValide() == 1) {
-  //le joueur joue
-  do{
-    printf("Choisissez une case :  ");
-    scanf(" %d", &numeroCase);
+  while (verifieSiExisteCaseValide() == 1 && verifieSiUnJoueurAgagner(joueur) == 0) {
 
-    printf("Choisissez une colonne :  ");
-    scanf(" %d", &colonne);
-
-    if (!verifieSicaseValide(numeroCase, colonne)|| (numeroCase<1 || colonne < 1)) {
-      printf("\n\n\033[1;31mMerci de selectionner une case valide.\033[0m\n\n");
-    }
+    //le joueur joueN
     
-  }while (!verifieSicaseValide(numeroCase, colonne)|| (numeroCase<1 || colonne < 1));
-  grille[numeroCase-1][colonne-1]= joueur;
-  affichegrille();
-  
- }
+    do{
+      printf("Choisissez une case : ");
+      scanf(" %d", &numeroCase);
+
+      printf("Choisissez une colonne : ");
+      scanf(" %d", &colonne);
+
+      if (verifieSicaseValide(numeroCase, colonne) == 0 || numeroCase<1 || colonne < 1) {
+        printf("\n\n\033[1;31mMerci de selectionner une case valide.\033[0m\n\n");
+      }
+
+    }while (verifieSicaseValide(numeroCase, colonne) == 0 || numeroCase<1 || colonne < 1);
+
+    grille[numeroCase-1][colonne-1] = joueur;
+    affichegrille();
+  }   
+
  /*
   jeu de l'odinateur
  */
