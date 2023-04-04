@@ -106,6 +106,7 @@ void programmePrincipale() {
   affichegrille();
   char joueur, ordinateur;
   int numeroCase, colonne,a,b;
+  char réponse[4];
   
   /*
     le joueur choisit sa couleur
@@ -172,6 +173,21 @@ void programmePrincipale() {
 
  if (verifieSiUnJoueurAgagner(ordinateur) == 1) {
     printf("\n\n\033[34mVous avez malheureusement perdu.\033[0m\n\n");
+  }
+  
+  /*
+    Rélance le jeu au cas ou le joueur le 
+  */
+  do{
+    printf("Souhaitez vous rejouer ? ");
+    scanf("%s", &réponse);
+  }while(!strcmp(réponse, "oui") && !strcmp(réponse, "non"));
+
+  if (!strcmp(réponse, "oui")){
+    printf("\n\n\033[34mVous avez choisi de rejouer.\033[0m\n\n");
+    programmePrincipale();
+  }else{
+    printf("\n\n\033[1;31mVous avez quitté le jeu.\033[0m\n\n");
   }
   
 }
