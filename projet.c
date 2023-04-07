@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #define LARGEUR  6
 #define LONGUEUR 7
@@ -42,6 +43,7 @@ int verifieSicaseValide(int a, int b) {
   }
   return 0;  
 } 
+
 
 int verifieSiUnJoueurAgagner(char player) {
   int i, j;
@@ -99,6 +101,55 @@ int verifieSiExisteCaseValide() {
     }
   }
   return 0;
+}
+
+void coupOrdinateur(char joueur, char ordinateur) {
+  int i, j, colonne,a, b;
+
+  // 1. Vérifier s'il y a une colonne où l'ordinateur peut gagner
+  for (i = 0; i < LONGUEUR; i++) {
+    for (j = 0; j < LARGEUR; j++) {
+      if (verifieSicaseValide(i, j)) {
+        grille[i][j] = ordinateur;
+
+        if (verifieSiUnJoueurAgagner(ordinateur) == 1) {
+          printf("\n\n\033[34mL'ordinateur a joué en (%d, %d)\033[0m\n\n", i+1, j+1);
+          affichegrille();
+          return;
+        }else{
+          grille[i][j] = ' ';
+        }
+      }
+    }
+  }
+
+  // 2. Vérifier s'il y a une colonne où le joueur peut gagner et bloquer le joueur
+  for (i = 0; i < LONGUEUR; i++) {
+    for (j = 0; j < LARGEUR; j++) {
+      if (verifieSicaseValide(i, j)) {
+        grille[i][j] = joueur;
+
+        if (verifieSiUnJoueurAgagner(joueur) == 1) {
+          grille[i][j] = ordinateur;
+          printf("\n\n\033[34mL'ordinateur a joué en (%d, %d)\033[0m\n\n", i+1, j+1);
+          affichegrille();
+          return;
+        }else{
+          grille[i][j] = ' ';
+        }
+      }
+    }
+  }
+
+  // 3. Jouer dans une colonne aléatoire
+  do {
+    a = rand() % LARGEUR;
+    b = rand() % LONGUEUR;
+  } while (verifieSicaseValide(a, b) == 0);
+    grille[a][b] = ordinateur;
+    printf("\n\n\033[34mL'ordinateur a joué en (%d, %d)\033[0m\n\n", a+1, b+1);
+    affichegrille();
+ 
 }
 
 void programmePrincipale() {
@@ -159,13 +210,16 @@ void programmePrincipale() {
     /*
     jeu de l'odinateur
    */
-    do {
+   
+    /* do {
       a = rand() % LARGEUR;
       b = rand() % LONGUEUR;
     } while (verifieSicaseValide(a, b) == 0);
     grille[a][b] = ordinateur;
     printf("\n\n\033[34mL'ordinateur a joué en (%d, %d)\033[0m\n\n", a+1, b+1);
-    affichegrille();   
+    affichegrille(); */
+
+    coupOrdinateur(joueur, ordinateur);  
   }   
   if (verifieSiUnJoueurAgagner(joueur) == 1) {
     printf("\n\n\033[34mFélicitation. Vous avez gagné.\033[0m\n\n");
@@ -181,7 +235,7 @@ void programmePrincipale() {
   do{
     printf("Souhaitez vous rejouer ? ");
     scanf("%s", &réponse);
-  }while(!strcmp(réponse, "oui") && !strcmp(réponse, "non"));
+  }while(strcmp(réponse, "oui") && strcmp(réponse, "non"));
 
   if (!strcmp(réponse, "oui")){
     printf("\n\n\033[34mVous avez choisi de rejouer.\033[0m\n\n");
