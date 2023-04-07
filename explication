@@ -1,0 +1,13 @@
+Le code fourni est un programme en langage C pour jouer au jeu de Puissance 4. Voici comment il fonctionne :
+
+    Il y a un tableau de caractères bidimensionnel nommé "grille" qui représente la grille du jeu.
+    La fonction "initgrille" initialise chaque élément de la grille à un caractère vide en parcourant chaque ligne et chaque colonne.
+    La fonction "affichegrille" affiche la grille du jeu en utilisant des boucles pour parcourir chaque ligne et chaque colonne. Elle affiche également des séparateurs pour distinguer chaque colonne et chaque ligne.
+    La fonction "verifieSicaseValide" prend les coordonnées d'une case de la grille et vérifie si elle est vide et si elle est dans les limites de la grille.
+    La fonction "verifieSiUnJoueurAgagner" prend un caractère "joueur" en entrée et vérifie s'il y a une combinaison gagnante pour ce joueur dans la grille. Elle utilise une série de boucles pour parcourir chaque ligne, colonne et diagonale.
+    La fonction "verifieSiExisteCaseValide" parcourt chaque case de la grille et vérifie s'il y a au moins une case valide (c'est-à-dire vide) dans la grille.
+    La fonction "coupOrdinateur" prend les caractères du joueur et de l'ordinateur en entrée et effectue le coup de l'ordinateur en parcourant chaque case de la grille. Elle effectue les deux étapes suivantes :
+    a) Vérifie s'il y a une colonne où l'ordinateur peut gagner en jouant dans cette colonne.
+    b) Vérifie s'il y a une colonne où le joueur peut gagner en jouant dans cette colonne. Si l'ordinateur ne peut pas gagner dans la première étape et que le joueur peut gagner dans la deuxième étape, il joue dans cette colonne pour bloquer le joueur. Si aucune de ces deux conditions n'est remplie, il joue dans une colonne aléatoire.
+
+J'espère que cela aide à comprendre le fonctionnement de ce programme.
